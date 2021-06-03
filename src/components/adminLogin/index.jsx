@@ -6,22 +6,22 @@ import './index.less'
 import { layout, tailLayout } from './modules'
 
 export default class index extends Component {
+
+    state = {
+        username: String,
+        password: String
+    }
+
+    onFinish = (values) => {
+        this.setState({...values})
+        console.log(this.state)
+    }
+
+    onFinishFailed = (errorInfo) => {
+        console.log('失败：', errorInfo)
+    }
+
     render() {
-        // eslint-disable-next-line no-unused-vars
-        const state = {
-            username: String,
-            password: String
-        }
-
-        const onFinish = (values) => {
-            this.setState({...values})
-            console.log(this.state)
-        }
-
-        const onFinishFailed = (errorInfo) => {
-            console.log('失败：', errorInfo)
-        }
-
         return (
             <div className="adminLogin">
                 <p className="title">登陆</p>
@@ -31,8 +31,8 @@ export default class index extends Component {
                     {...layout}
                     name="adminLoginForm"
                     initialValues={{ remember: false}}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
+                    onFinish={this.onFinish}
+                    onFinishFailed={this.onFinishFailed}
                 >
                     <Form.Item
                         name="username"

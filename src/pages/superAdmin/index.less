@@ -1,0 +1,79 @@
+.superAdmin {
+  width: 100%;
+  height: 100vh;
+
+  .layoutBox {
+    width: 100%;
+    height: 100%;
+
+    // 侧边导航栏
+    .sider {
+      .input {
+        width: 80%;
+        margin: 30px 0 30px 10%;
+      }
+    }
+
+    // 左边内容
+    .site-layout {
+      // header
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .trigger {
+          margin-left: 24px;
+        }
+
+        .topBox {
+          margin-right: 24px;
+          display: flex;
+          align-items: center;
+          
+          img {
+            border: 1px solid #707070;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+          }
+
+          span {
+            margin: 0 12px;
+	          font-size: 17px;
+	          color: #707070;
+          }
+
+          .loginOut {
+            font-size: 20px;
+          }
+
+        }
+
+      }
+
+      //table
+      .tableBox {
+        width: 100%;
+        height: calc(100% - 40px);
+        padding: 24px 36px;
+        background: #fff;
+        border-radius: 10px;
+      }
+    }
+
+
+
+  }
+
+}
+
+#components-layout-demo-custom-trigger .trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+

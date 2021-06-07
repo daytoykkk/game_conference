@@ -20,7 +20,7 @@ export default class index extends Component {
     render() {
         return (
             <div className="userLogin">
-                <Tabs {...tabStyle} defaultActiveKey="2" onChange={this.callback}>
+                <Tabs {...tabStyle} defaultActiveKey="1" onChange={this.callback}>
                     <TabPane tab="登陆" key="1">
                         <SignIn />
                     </TabPane>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import './index.less'
-import Icon from './images/arrow.png'
+import Icon from '../../images/arrow.png'
 import UserLogin from '../../components/userLogin'
 import AdminLogin from '../../components/adminLogin'
 

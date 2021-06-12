@@ -25,7 +25,7 @@ export default class index extends Component {
                         <Route path='/home/myMeeting' component={MyMeeting} />
                         <Route path='/home/selfInfo' component={SelfInfo} />
                         <Route path='/home/manageRoom' component={ManageRoom} />
-                        <Redirect from='/home' to='/home/allRooms' />
+                        <Redirect from='/home' to='/home/myMeeting' />
                     </Switch>
                 </div>
             </Layout>

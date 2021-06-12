@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
-import { Radio, Pagination } from 'antd'
+import { Radio, Pagination, DatePicker, Input } from 'antd'
 
 import './index.less'
+
+const { RangePicker } = DatePicker;
+const { Search } = Input;
+
 export default class index extends Component {
 
     state = {
-        radioValue: "1"
+        current: 1,
+        radioValue: "1",
+        startTime: "",
+        endTime: ""
     }
 
     handleRadioChange = (e) => {
@@ -14,16 +21,42 @@ export default class index extends Component {
         })
     }
 
+    handleDateChange = (e) => {
+        this.setState({
+            startTime: e[0]._d,
+            endTime: e[1]._d
+        })
+    }
+
+    handlePageChange = (e) => {
+        this.setState({
+            current: e
+        })
+    }
+
+    onSearch = (value) => {
+        console.log(value)
+    }
+
     mockData = []
+    meetMockData = []
 
 
     render() {
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 10; i++) {
             this.mockData.push({
                 key: i,
                 title: "hhhhhhhhhhhhhhhhhhhhhhhhhh",
                 time: "6月2日13:00-6月2日13:00",
                 person: "五条悟"
+            })
+            this.meetMockData.push({
+                key: i,
+                roomId: 201,
+                title: "hhhhhhhhhhhhhhhhhhhhhhhhhhh",
+                startTime: "6月2日13:30-",
+                endTime: "6月2日17:00",
+                host: "五条悟"
             })
         }
         return (
@@ -31,14 +64,45 @@ export default class index extends Component {
                 {/* 左边会议室内容 */}
                 <div className="leftBox">
                     <div className="meetingList">
-                        会议列表
+                        <div className="timePicker">
+                            <RangePicker 
+                                showTime 
+                                placeholder={["开始时间", "结束时间"]}
+                                onChange={this.handleDateChange}
+                            />
+                        </div>
+                        <div className="meetingBox">
+                            <Search 
+                                placeholder="查询会议室" 
+                                allowClear 
+                                onSearch={this.onSearch} 
+                                style={{ width: 250, float: 'right', marginBottom: '20px' }} 
+                            />
+                            <div className="listBox">
+                                {
+                                    this.meetMockData.map((item) => {
+                                        return <div className="meetItem">
+                                            <div className="itemTitle">{item.roomId}</div>
+                                            <div className="itemContent">
+                                                <p>{item.title}</p>
+                                                <span className="time">{item.startTime}</span><br />
+                                                <span className="time">{item.endTime}</span><br /><br />
+                                                <span className="host">主持人：{item.host}</span>
+                                            </div>
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        </div>
                     </div>
+                    {/* 分页 */}
                     <div className="page">
                         <Pagination
                             showSizeChanger={false}
                             showQuickJumper
-                            defaultCurrent={1}
-                            total={500}
+                            current={this.state.current}
+                            onChange={this.handlePageChange}
+                            total={this.meetMockData.length}
                         />
                     </div>
                 </div>

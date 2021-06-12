@@ -13,17 +13,17 @@ const { Header } = Layout;
 export default class index extends Component {
 
     state = {
-        identity: 1
+        identity: 2
     }
 
     render() {
         return (
             <Header className="header">
-                <Menu theme="light" mode="horizontal" defaultSelectedKeys={['/allRooms']}>
+                <Menu theme="light" mode="horizontal" defaultSelectedKeys={['/home/allRooms']}>
                     {(this.state.identity === 1 ) ? userMenu.map((item) => {
                         return <Menu.Item key={item.path}><Link to={item.path}>{item.title}</Link></Menu.Item>
                     }) : vipMenu.map((item) => {
-                        return <Menu.Item key={item.path}>{item.title}</Menu.Item>
+                        return <Menu.Item key={item.path}><Link to={item.path}>{item.title}</Link></Menu.Item>
                     })}
                 </Menu>
                 <div className="rightBox">

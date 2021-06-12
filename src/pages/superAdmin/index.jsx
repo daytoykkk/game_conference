@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Layout, Menu, Input, Table } from 'antd'
+import { Switch, Route, Redirect, Link } from 'react-router-dom'
+import { Layout, Menu, Input } from 'antd'
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
@@ -10,54 +11,33 @@ import {
 
 import './index.less';
 import Icon from '../../images/arrow.png'
-import { columns } from './modules'
+
+import CompanyList from './companyList'
+import Company from './company'
 
 const { Header, Sider, Content } = Layout
-
-// todo 测试数据
-const MockData = [];
-for(let i=0;i<22;i++) {
-    MockData.push({
-        key: i,
-        companyName: '这是一家公司',
-        companyCode: '123456',
-        admin: '五条悟',
-        tel: '11111111111',
-        time: '2021-06-04'
-    })
-}
-
 
 export default class index extends Component {
 
     state = {
-        collapsed: false,
-        isPass: true,       //是否通过审核
+        collapsed: false,    //是否收起菜单
+        isPass: false       //是否通过审核
     }
 
-
-    toggle = () => {
-        this.setState({
-          collapsed: !this.state.collapsed,
-        });
-      };
-
-      // todo scrollY没设置成功
-
     render() {
-        
+
         return (
-            <div className="superAdmin">
+            <div className="companyList">
                 <Layout className="layoutBox">
                     {/* 侧边导航栏 */}
                     <Sider className="sider" trigger={null} collapsible collapsed={this.state.collapsed}>
                         <Input className="input" />
                         <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
                             <Menu.Item key="1" icon={<CheckCircleOutlined />}>
-                                已通过审核
+                                <Link to={{path:'/superAdmin/companyList', state:{isPass:true}}}>已通过审核</Link>
                             </Menu.Item>
                             <Menu.Item key="2" icon={<ExclamationCircleOutlined />}>
-                                未审核
+                                <Link to={{path:'/superAdmin/companyList', state:{isPass:false}}}>未审核</Link>
                             </Menu.Item>
                         </Menu>
                     </Sider>
@@ -72,7 +52,7 @@ export default class index extends Component {
                             <div className="topBox">
                                 <img src={Icon} alt="头像" />
                                 <span>超级管理员</span>
-                                <LogoutOutlined className="loginOut"/>
+                                <LogoutOutlined className="loginOut" />
                             </div>
                         </Header>
                         <Content
@@ -83,10 +63,11 @@ export default class index extends Component {
                                 minHeight: 280,
                             }}
                         >
-                            <p>{this.state.isPass ? "已通过审核":"未通过"}</p>
-                            <div className="tableBox">
-                                <Table columns={columns} dataSource = {MockData} scroll={{ y: 400 }} />
-                            </div>
+                            <Switch>
+                                <Route path='/superAdmin/companyList' component={CompanyList}/>
+                                <Route path='/superAdmin/company' component={Company} exact/>
+                                <Redirect to='/superAdmin/companyList' />
+                            </Switch>
                         </Content>
                     </Layout>
                 </Layout>
@@ -94,3 +75,5 @@ export default class index extends Component {
         )
     }
 }
+
+

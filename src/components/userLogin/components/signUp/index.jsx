@@ -4,22 +4,34 @@ import { Form, Row, Col, Button, Input } from 'antd'
 import './index.less'
 import { layout, tailLayout } from '../../modules'
 
+import { reqSendEmail} from '../../../../api'
+
 export default class index extends Component {
 
     state = {
         username: String,
         password: String,
         confirm: String,
-        email: String,
-        code: String,
-        codeTime: String
+        email: "",
+        code: String
+    }
+
+    handleEmailValue = (e) => {
+        this.setState({
+            email: e.target.value
+        })
+    }
+
+    handleEmail = async (e) => {
+        const res = await reqSendEmail(this.state.email)
+        console.log(res)
     }
 
     onFinish = (values) => {
-        let codeTime = new Date();
         this.setState({
-            ...values, codeTime
+            ...values
         })
+        //todo 注册请求
     }
 
     render() {
@@ -29,7 +41,7 @@ export default class index extends Component {
                     className="signUpForm"
                     {...layout}
                     name="signUpForm"
-                    initialValues={{ remember: true }}
+                    initialValues={{ remember: false }}
                     onFinish={this.onFinish}
                 >
                     <Form.Item
@@ -41,9 +53,9 @@ export default class index extends Component {
 
                     <Form.Item
                         name="email"
-                        rules={[{ required: true, message: '请输入你的邮箱！' }]}
+                        rules={[{ required: true, message: '请输入你的邮箱！' }, { type: 'email', message: "邮箱格式不正确！"}]}
                     >
-                        <Input placeholder="请输入邮箱" />
+                        <Input value={this.state.email} onChange={this.handleEmailValue} placeholder="请输入邮箱" />
                     </Form.Item>
 
                     <Form.Item
@@ -109,7 +121,7 @@ export default class index extends Component {
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
-                                <Button type="primary">发送验证码</Button>
+                                <Button type="primary" onClick={this.handleEmail}>发送验证码</Button>
                             </Col>
                         </Row>
                     </Form.Item>

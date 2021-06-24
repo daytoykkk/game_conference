@@ -3,6 +3,7 @@ import { Form, Input, Button, Row,Col } from 'antd';
 
 import './index.less'
 import { layout, tailLayout } from '../../modules'
+import  Icon  from '../../../../images/code.png'
 
 export default class index extends Component {
 
@@ -22,6 +23,10 @@ export default class index extends Component {
         console.log('失败', errorInfo);
       };
 
+      toHome = () => {
+          this.props.history.push('/home');
+    }
+
     render() {
         return (
             <div className="signIn">
@@ -29,6 +34,7 @@ export default class index extends Component {
                     className="signInForm"
                     {...layout}
                     name="loginForm"
+                    autoComplete = "off"
                     initialValues={{ remember: true }}
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
@@ -58,13 +64,13 @@ export default class index extends Component {
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
-                                <Button>我是图片</Button>
+                                <img style={{'width':'60px','height':'30px'}} src={Icon} alt="验证码" />
                             </Col>
                         </Row>
                    </Form.Item>
 
                     <Form.Item {...tailLayout}>
-                        <Button className="btn" type="primary" htmlType="submit">
+                        <Button onClick={this.toHome.bind(this)} className="btn" type="primary" htmlType="submit">
                             登陆
                         </Button>
                     </Form.Item>

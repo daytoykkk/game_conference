@@ -22,7 +22,7 @@ export default class index extends Component {
             <div className="userLogin">
                 <Tabs {...tabStyle} defaultActiveKey="2" onChange={this.callback}>
                     <TabPane tab="登陆" key="1">
-                        <SignIn />
+                        <SignIn history={this.props.history} />
                     </TabPane>
                     <TabPane tab="注册" key="2">
                         <SignUp />

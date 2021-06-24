@@ -57,7 +57,7 @@ export default class company extends Component {
                         </div>
                         <div className="itemBox" style={{'display':'flex', 'margin-top':'32px'}}>
                             <span style={{'width':'100px'}}>公司描述：</span>
-                            <TextArea rows={4} />
+                            <TextArea rows={4} value="我们公司真的很需要这个平台来管理会议室和组织会议，请务必通过！"/>
                         </div>
                         <div className="btnBox">
                             <Button type="primary">驳回</Button>

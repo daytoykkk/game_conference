@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Form, Row, Col, Button, Input } from 'antd'
+import { Form, Row, Col, Button, Input, message } from 'antd'
 
 import './index.less'
 import { layout, tailLayout } from '../../modules'
 
-import { reqSendEmail} from '../../../../api'
+import { registerReq, sendEmailReq } from '../../../../api'
 
 export default class index extends Component {
 
@@ -12,7 +12,7 @@ export default class index extends Component {
         username: String,
         password: String,
         confirm: String,
-        email: "",
+        email: String,
         code: String
     }
 
@@ -22,16 +22,28 @@ export default class index extends Component {
         })
     }
 
+    // 发送邮箱
     handleEmail = async (e) => {
-        const res = await reqSendEmail(this.state.email)
-        console.log(res)
+        const res = await sendEmailReq(this.state.email)
+        if(res.msg === "success") {
+            message.success('发送成功，请及时查看邮箱！');
+        }
     }
 
-    onFinish = (values) => {
+    // 注册
+    onFinish = async (values) => {
         this.setState({
             ...values
         })
         //todo 注册请求
+        const data = {
+            code: this.state.code,
+            email: this.state.email,
+            password: this.state.password,
+            username: this.state.username
+        }
+        const res = await registerReq(data)
+        console.log(res)
     }
 
     render() {
@@ -41,8 +53,9 @@ export default class index extends Component {
                     className="signUpForm"
                     {...layout}
                     name="signUpForm"
-                    initialValues={{ remember: false }}
+                    initialValues={{ remember: true }}
                     onFinish={this.onFinish}
+                    autoComplete="off"
                 >
                     <Form.Item
                         name="username"

@@ -23,7 +23,7 @@ export default class App extends Component {
           <Route path="/home" component={Home} />
           <Route path="/superAdmin" component={SuperAdmin} />
           <Route path="/notFound" component={NotFound} />
-          <Redirect from="/" to="/home" />
+          <Redirect from="/" to="/login" />
         </Switch>
       </Router>
     )

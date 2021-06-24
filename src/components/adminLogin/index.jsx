@@ -21,6 +21,10 @@ export default class index extends Component {
         console.log('失败：', errorInfo)
     }
 
+    toSuper = () => {
+        this.props.history.push('/superAdmin')
+    }
+
     render() {
         return (
             <div className="adminLogin">
@@ -47,7 +51,7 @@ export default class index extends Component {
                         <Input.Password placeholder="请输入密码"/>
                     </Form.Item>
                     <Form.Item {...tailLayout}>
-                        <Button className="btn" type="primary" htmlType="submit">登陆</Button>
+                        <Button onClick={this.toSuper} className="btn" type="primary" htmlType="submit">登陆</Button>
                     </Form.Item>
                 </Form>
             </div>

@@ -45,7 +45,7 @@ export default class room extends Component {
                             <div className="leftBottomBox">
                                 <p>会议室描述 <EditOutlined /></p>
                                 <div className="contentBox">
-                                    我是该会议室的描述
+                                    该会议室可容纳20人，有投影仪、音箱、咖啡机。
                                 </div>
                             </div>
                         </div>

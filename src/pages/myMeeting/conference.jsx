@@ -41,7 +41,7 @@ export default class conference extends Component {
                         <div className="rightTopBox">
                             <div className="contentBox">
                                 <div className="titleBox">会议描述</div>
-                                <div className="content">hhhh</div>
+                                <div className="content">本次会议关于物品价格上涨以及库存调整和客户需求的讨论。</div>
                             </div>
                             <div className="fileBox">
                                 <div className="titleBox">会议上传文件 <PlusOutlined /></div>

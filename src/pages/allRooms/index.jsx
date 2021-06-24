@@ -38,6 +38,10 @@ export default class index extends Component {
         console.log(value)
     }
 
+    toRoom = () => {
+        this.props.history.push({pathname:'/home/manageRoom/room',state:{name:'201',id:'3565'}})
+    }
+
     mockData = []
     meetMockData = []
 
@@ -46,14 +50,14 @@ export default class index extends Component {
         for (let i = 0; i < 10; i++) {
             this.mockData.push({
                 key: i,
-                title: "hhhhhhhhhhhhhhhhhhhhhhhhhh",
+                title: "关于月末部门员工团建详细安排",
                 time: "6月2日13:00-6月2日13:00",
                 person: "五条悟"
             })
             this.meetMockData.push({
                 key: i,
-                roomId: 201,
-                title: "hhhhhhhhhhhhhhhhhhhhhhhhhhh",
+                roomId: "20" + i,
+                title: "关于月末部门员工团建详细安排",
                 startTime: "6月2日13:30-",
                 endTime: "6月2日17:00",
                 host: "五条悟"
@@ -83,7 +87,7 @@ export default class index extends Component {
                                     this.meetMockData.map((item) => {
                                         return <div className="meetItem">
                                             <div className="itemTitle">{item.roomId}</div>
-                                            <div className="itemContent">
+                                            <div className="itemContent" onClick={this.toRoom}>
                                                 <p>{item.title}</p>
                                                 <span className="time">{item.startTime}</span><br />
                                                 <span className="time">{item.endTime}</span><br /><br />

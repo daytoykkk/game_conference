@@ -15,8 +15,14 @@ export default function ajax(url, data={},method='GET') {
             promise = axios.get(url, {
                 params:data
             })
-        } else {    //post请求
+        } else if(method === 'POST') {    //post请求
             promise = axios.post(url,data)
+        } else if(method === 'PUT') {
+            promise = axios.put(url,data)
+        } else if(method === 'DELETE') {
+            promise = axios.delete(url, {
+                params:data
+            })
         }
         
         promise.then(res => {       // 成功，调用resolve(value)

@@ -1,9 +1,9 @@
 import ajax from './ajax'
 
-// 申请公司
+// 申请成为公司员工
 export const applyForCompanyReq = (data) => ajax('/user/applyForCompany',data,'POST');
 
-// 获取单个公司信息
+// 获取本公司信息
 export const getCompanyInfoByIdReq = (id) => ajax('/user/getCompanyInfoById',{"companyId":id},'GET');
 
 // 获取公司会议室

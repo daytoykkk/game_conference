@@ -1,7 +1,7 @@
 import ajax from './ajax'
 
 // 获取验证码
-export const getCodeReq = (data) => ajax('/auth/getCode',data,'GET');
+export const getCodeReq = (data) => ajax('/auth/getCode',data,'GET','arraybuffer');
 
 // 登陆
 export const loginReq = (data) => ajax('/auth/login',data,'POST');

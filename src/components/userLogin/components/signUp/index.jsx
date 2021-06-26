@@ -27,6 +27,8 @@ export default class index extends Component {
         const res = await sendEmailReq(this.state.email)
         if(res.msg === "success") {
             message.success('发送成功，请及时查看邮箱！');
+        } else {
+            message.warning(res.msg);
         }
     }
 
@@ -35,7 +37,6 @@ export default class index extends Component {
         this.setState({
             ...values
         })
-        //todo 注册请求
         const data = {
             code: this.state.code,
             email: this.state.email,
@@ -43,7 +44,12 @@ export default class index extends Component {
             username: this.state.username
         }
         const res = await registerReq(data)
-        console.log(res)
+        if(res.msg === "success") {
+            message.success("注册成功！");
+            this.props.toLoginValue(1);
+        } else {
+            message.warning(res.msg)
+        }
     }
 
     render() {

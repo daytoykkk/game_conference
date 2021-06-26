@@ -6,22 +6,39 @@
 
 import axios from 'axios'
 
-export default function ajax(url, data={},method='GET') {
+export default function ajax(url, data={},method='GET',responceType='') {
+
+    let token = sessionStorage.getItem("token")? sessionStorage.getItem("token") : '';
 
     return new Promise((resolve, reject) => {
         let promise;
         // 执行异步ajax请求
         if(method==='GET') {    //get请求
             promise = axios.get(url, {
-                params:data
+                params:data,
+                responseType: responceType,
+                headers: {
+                    "token": token
+                }
             })
         } else if(method === 'POST') {    //post请求
-            promise = axios.post(url,data)
+            promise = axios.post(url,data,{
+                headers: {
+                    "token": token
+                }
+            })
         } else if(method === 'PUT') {
-            promise = axios.put(url,data)
+            promise = axios.put(url,data,{
+                headers: {
+                    "token": token
+                }
+            })
         } else if(method === 'DELETE') {
             promise = axios.delete(url, {
-                params:data
+                params:data,
+                headers: {
+                    "token": token
+                }
             })
         }
         

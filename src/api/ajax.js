@@ -6,7 +6,7 @@
 
 import axios from 'axios'
 
-export default function ajax(url, data={},method='GET',responceType='') {
+export default function ajax(url, data={},method='GET',responceType='',contentType='application/json') {
 
     let token = sessionStorage.getItem("token")? sessionStorage.getItem("token") : '';
 
@@ -24,7 +24,8 @@ export default function ajax(url, data={},method='GET',responceType='') {
         } else if(method === 'POST') {    //post请求
             promise = axios.post(url,data,{
                 headers: {
-                    "token": token
+                    "token": token,
+                    "Content-Type": contentType
                 }
             })
         } else if(method === 'PUT') {

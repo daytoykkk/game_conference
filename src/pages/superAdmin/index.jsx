@@ -24,6 +24,7 @@ export default class index extends Component {
         isPass: false       //是否通过审核
     }
 
+  
     render() {
 
         return (
@@ -32,7 +33,7 @@ export default class index extends Component {
                     {/* 侧边导航栏 */}
                     <Sider className="sider" trigger={null} collapsible collapsed={this.state.collapsed}>
                         <Input className="input" />
-                        <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
+                        <Menu theme="light" mode="inline" defaultSelectedKeys={['2']}>
                             <Menu.Item key="1" icon={<CheckCircleOutlined />}>
                                 <Link to={{path:'/superAdmin/companyList', state:{isPass:true}}}>已通过审核</Link>
                             </Menu.Item>

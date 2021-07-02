@@ -31,6 +31,7 @@ import {
     addMeetingMemberReq,
     appointMeetingReq,
     getHostMeetingReq,
+    getMeetingById,
     getMeetingFileReq,
     getUserMeetingReq,
     uploadMeetingFileReq
@@ -84,6 +85,7 @@ export {
     addMeetingMemberReq,
     appointMeetingReq,
     getHostMeetingReq,
+    getMeetingById,
     getMeetingFileReq,
     getUserMeetingReq,
     uploadMeetingFileReq,

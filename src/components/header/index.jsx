@@ -12,15 +12,29 @@ const { Header } = Layout;
 
 export default class index extends Component {
 
+    componentWillMount = () => {
+        let id = sessionStorage.getItem("identity");
+        let username = sessionStorage.getItem("username");
+        console.log(id)
+        this.setState({
+            identity:id,
+            username
+        })
+    }
+
     state = {
         identity: 2
+    }
+
+    loginout = () => {
+        this.props.history.push('/login');
     }
 
     render() {
         return (
             <Header className="header">
-                <Menu theme="light" mode="horizontal" defaultSelectedKeys={['/home/allRooms']}>
-                    {(this.state.identity === 1 ) ? userMenu.map((item) => {
+                <Menu theme="light" mode="horizontal" defaultSelectedKeys={['/home/selfInfo']}>
+                    {(this.state.identity === "1" ) ? userMenu.map((item) => {
                         return <Menu.Item key={item.path}><Link to={item.path}>{item.title}</Link></Menu.Item>
                     }) : vipMenu.map((item) => {
                         return <Menu.Item key={item.path}><Link to={item.path}>{item.title}</Link></Menu.Item>
@@ -28,8 +42,8 @@ export default class index extends Component {
                 </Menu>
                 <div className="rightBox">
                     <img src={Icon} alt="头像" />
-                    <span>老大哥</span>
-                    <LogoutOutlined style={{"fontSize":"18px"}} />
+                    <span>{this.state.username}</span>
+                    <LogoutOutlined onClick={this.loginout} style={{"fontSize":"18px"}} />
                 </div>
             </Header>
         )

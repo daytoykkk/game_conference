@@ -17,23 +17,23 @@ const columns = [
         width: 120
     },
     {
-        title: '会议室',
-        dataIndex: 'room',
-        key: 'room',
+        title: '会议室ID',
+        dataIndex: 'roomId',
+        key: 'roomId',
         align: 'center',
         width: 100
     },
     {
         title: '会议名称',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'meetingName',
+        key: 'meetingName',
         align: 'center',
         ellipsis: true
     },
     {
-        title: '会议进行时间',
-        dataIndex: 'time',
-        key: 'time',
+        title: '会议开始时间',
+        dataIndex: 'startTime',
+        key: 'startTime',
         align: 'center',
         width: 350
     },
@@ -50,4 +50,22 @@ const columns = [
     },
 ];
 
-export { columns }
+
+const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 4 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 20 },
+    },
+  };
+  const formItemLayoutWithOutLabel = {
+    wrapperCol: {
+      xs: { span: 24, offset: 0 },
+      sm: { span: 20, offset: 4 },
+    },
+  };
+
+export { columns, formItemLayout, formItemLayoutWithOutLabel }

@@ -7,35 +7,38 @@ import { withRouter } from 'react-router-dom';
 
 import './index.less';
 import { columns } from './config'
-
-
-// todo 测试数据
-const MockData = [];
-for (let i = 0; i < 22; i++) {
-    MockData.push({
-        key: i,
-        companyName: '这是一家公司',
-        companyCode: '123456',
-        admin: '五条悟',
-        tel: '11111111111',
-        time: '2021-06-04'
-    })
-}
+import { getUnaAuditCompanyReq } from '../../api'
 
 
 class CompanyList extends Component {
 
     state = {
-        isPass: true
+        isPass: false,
+        current:1,
+        total: 22
     }
 
-    componentWillReceiveProps = (newProps) => {
+      // 获取未审核列表
+    componentDidMount = async () => {
+        let res = await getUnaAuditCompanyReq({"page":1,"size":10})
+        let data = res.data;
+        data.forEach( i => {
+            i.createDate = i.createDate.slice(0,10);
+        })
+        this.setState({
+            tableData : res.data
+        })
+    }
+
+
+    UNSAFE_componentWillReceiveProps = (newProps) => {
         const { isPass } = newProps.location.state
         this.setState({
             isPass
         })
     }
 
+    // 去公司详情页
     handleClick = (record) => {
         return () => {
             const { isPass } = this.state
@@ -43,10 +46,21 @@ class CompanyList extends Component {
                 pathname: '/superAdmin/company',
                 state: {
                     isPass,
-                    name: record.companyName
+                    name: record.companyName,
+                    companyId: record.companyId
                 }
             })
         }
+    }
+
+    //分页
+    handleChangePage = (page) => {
+        this.setState({
+            current:page
+        },async () => {
+            let res = await getUnaAuditCompanyReq({"page":page,"size":10})
+            console.log(res)
+        })
     }
 
     render() {
@@ -55,14 +69,20 @@ class CompanyList extends Component {
             <div className="companyList">
                 <p>{this.state.isPass ? "已通过审核" : "未审核"}</p>
                 <Table
+                    rowKey={columns => columns.companyId} 
                     columns={columns}
-                    dataSource={MockData}
+                    dataSource={this.state.tableData}
                     scroll={{ y: 400 }}
                     onRow={record => {
                         return {
                             onClick: this.handleClick(record)
                         }
                     }}
+                    pagination={{  // 分页
+                        current: this.state.current,
+                        total: this.state.total,
+                        onChange: this.handleChangePage,
+                      }}
                 />
             </div>
         )

@@ -25,8 +25,11 @@ export default class index extends Component {
         if (res.code !== 0) {
             sessionStorage.setItem("identity", res.code)
             sessionStorage.setItem("token", res.data.token)
+            sessionStorage.setItem("username",values.username)
             message.success(res.msg)
             this.props.history.push('/home');
+        }else{
+            message.warning(res.msg)
         }
     }
 

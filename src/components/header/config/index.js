@@ -36,6 +36,16 @@ const vipMenu = [
         title: '会议室管理',
         key: 4,
         path: '/home/manageRoom'
+    },
+    {
+        title: '公司成员',
+        key: 5,
+        path: '/home/allMember'
+    },
+    {
+        title: '待审核成员',
+        key: 6,
+        path: '/home/unauditedMember'
     }
 ]
 

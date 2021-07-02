@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Radio, Pagination, DatePicker, Input } from 'antd'
 
 import './index.less'
+import { getCompanyRoomReq, getUserMeetingReq } from '../../api'
 
 const { RangePicker } = DatePicker;
 const { Search } = Input;
@@ -12,7 +13,29 @@ export default class index extends Component {
         current: 1,
         radioValue: "1",
         startTime: "",
-        endTime: ""
+        endTime: "",
+        meetingTable:[{
+            description:"hhh",
+            host:"daytoykkk",
+            meetingName: "hhhh"
+        }],
+        roomTable:[{
+            description:"hhh",
+            roomAddress:"101",
+            roomId:4
+        }]
+    }
+
+     mockData =[]
+
+    // 获取公司会议室
+    componentWillMount = async () => {
+        let roomRes = await getCompanyRoomReq();
+        let meetingRes = await getUserMeetingReq({"page":1,"size":5});
+       this.setState({
+           roomTable:roomRes.data,
+           meetingTable: meetingRes.data
+       })
     }
 
     handleRadioChange = (e) => {
@@ -38,22 +61,22 @@ export default class index extends Component {
         console.log(value)
     }
 
-    toRoom = () => {
-        this.props.history.push({pathname:'/home/manageRoom/room',state:{name:'201',id:'3565'}})
+    toRoom = (item) => {
+       return () => {
+        let data = {
+            name: item.roomAddress,
+            id: item.roomId,
+            description: item.description
+        }
+        this.props.history.push({pathname:'/home/manageRoom/room',state:data})
+       }
     }
 
-    mockData = []
     meetMockData = []
 
 
     render() {
-        for (let i = 0; i < 10; i++) {
-            this.mockData.push({
-                key: i,
-                title: "关于月末部门员工团建详细安排",
-                time: "6月2日13:00-6月2日13:00",
-                person: "五条悟"
-            })
+        for (let i = 0; i < 5; i++) {
             this.meetMockData.push({
                 key: i,
                 roomId: "20" + i,
@@ -63,6 +86,7 @@ export default class index extends Component {
                 host: "五条悟"
             })
         }
+
         return (
             <div className="allRooms">
                 {/* 左边会议室内容 */}
@@ -84,14 +108,12 @@ export default class index extends Component {
                             />
                             <div className="listBox">
                                 {
-                                    this.meetMockData.map((item) => {
-                                        return <div className="meetItem">
-                                            <div className="itemTitle">{item.roomId}</div>
-                                            <div className="itemContent" onClick={this.toRoom}>
-                                                <p>{item.title}</p>
-                                                <span className="time">{item.startTime}</span><br />
-                                                <span className="time">{item.endTime}</span><br /><br />
-                                                <span className="host">主持人：{item.host}</span>
+                                    this.state.roomTable.map((item) => {
+                                        return <div className="meetItem" key={item.roomId}>
+                                            <div className="itemTitle">{item.roomAddress}</div>
+                                            <div className="itemContent" onClick={this.toRoom(item)}>
+                                                <p>{item.roomId}</p>
+                                                <span>{item.description}</span>
                                             </div>
                                         </div>
                                     })
@@ -117,11 +139,11 @@ export default class index extends Component {
                         <Radio.Button value="2">会议历史</Radio.Button>
                     </Radio.Group>
                     <div className="meetingBox">
-                        {this.mockData.map((item) => {
-                            return <div className="meetingItem" key={item.key}>
-                                <span className="meetingTitle">{item.title}</span>
-                                <span className="time">{item.time}</span>
-                                <span className="time">{item.person}</span>
+                        {this.state.meetingTable.map((item) => {
+                            return <div className="meetingItem" key={item.meetingId}>
+                                <span className="meetingTitle">{item.meetingName}</span>
+                                <span className="time">{item.startTime}</span>
+                                <span className="time">{item.host}</span>
                             </div>
                         })}
                     </div>

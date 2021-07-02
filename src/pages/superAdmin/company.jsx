@@ -3,10 +3,14 @@
 */
 
 import React, { Component } from 'react'
-import { Button, Input } from 'antd'
+import { Button, Input, message } from 'antd'
 import { DownloadOutlined } from '@ant-design/icons'
 
 import './company.less'
+import { 
+        getCompanyInfoByIdReq,
+        passCompanyReq,
+        unPassCompanyReq } from '../../api'
 
 const { TextArea } = Input;
 
@@ -14,21 +18,55 @@ export default class company extends Component {
 
     state = {
         isPass: true,
-        name: "hh"
+        name: "hh",
+        companyId: Number
     }
 
-    componentWillMount = () => {
-        const { isPass,name } = this.props.location.state
+   
+
+    componentDidMount = async () => {
+        const { isPass,name, companyId } = this.props.location.state
         this.setState({
             isPass,
-            name
+            name,
+            companyId
         })
+        //todo 获取公司详情
+        let res = await getCompanyInfoByIdReq(companyId);
+        console.log(res)
+    }
+
+    toList = () => {
+        this.props.history.push({
+            pathname: '/superAdmin/companyList',
+           })
+    }
+
+    // 公司不通过
+    handleClickUnpass = async () => {
+        let res = await unPassCompanyReq(this.state.companyId);
+        if(res.msg === "success"){
+            message.success("审核驳回！")
+        }else{
+            message.warning(res.msg)
+        }
+    }
+
+    // 公司通过
+    handleClickPass = async() => {
+        let res = await passCompanyReq(this.state.companyId);
+        if(res.msg === "success"){
+            message.success("审核通过！")
+            window.location.reload()
+        }else{
+            message.warning(res.msg)
+        }
     }
 
     render() {
         return (
             <div className="company"> 
-                <p className="title">{this.state.isPass? "已通过审核":"未通过审核"}/{this.state.name}</p>
+                <p className="title" onClick={this.toList}>{this.state.isPass? "已通过审核":"未通过审核"}/{this.state.name}</p>
                 <div className="box">
                     <div className="topBox">
                         <span>广州智利药业有限公司</span>
@@ -55,13 +93,13 @@ export default class company extends Component {
                             <span>管理员联系方式：<span className="content">1384896455648</span></span>
                             <span>管理员邮箱：<span className="content">4956346649@qq.com</span></span>
                         </div>
-                        <div className="itemBox" style={{'display':'flex', 'margin-top':'32px'}}>
+                        <div className="itemBox" style={{'display':'flex', 'marginTop':'32px'}}>
                             <span style={{'width':'100px'}}>公司描述：</span>
                             <TextArea rows={4} value="我们公司真的很需要这个平台来管理会议室和组织会议，请务必通过！"/>
                         </div>
                         <div className="btnBox">
-                            <Button type="primary">驳回</Button>
-                            <Button type="primary" style={{'margin-left': '30px'}}>通过</Button>
+                            <Button type="primary" onClick={this.handleClickUnpass}>驳回</Button>
+                            <Button type="primary" onClick={this.handleClickPass} style={{'marginLeft': '30px'}}>通过</Button>
                         </div>
                     </div>
                 </div>

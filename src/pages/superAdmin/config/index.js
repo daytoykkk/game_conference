@@ -4,28 +4,28 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 const columns = [
     {
         title: '公司名',
-        dataIndex: 'companyName',
-        key: 'companyName'
+        dataIndex: 'name',
+        key: 'name'
     },
     {
         title: '组织代码',
-        dataIndex: 'companyCode',
-        key: 'companyCode'
+        dataIndex: 'companyId',
+        key: 'companyId'
     },
     {
         title: '公司管理员',
-        dataIndex: 'admin',
-        key: 'admin'
+        dataIndex: 'owner',
+        key: 'owner'
     },
     {
-        title: '管理员联系方式',
-        dataIndex: 'tel',
-        key: 'tel'
+        title: '公司电话',
+        dataIndex: 'companyPhone',
+        key: 'companyPhone'
     }, 
     {
-        title: '审核通过时间',
-        dataIndex: 'time',
-        key: 'time'
+        title: '申请时间',
+        dataIndex: 'createDate',
+        key: 'createDate'
     }, 
     {
         title: '详情',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Row, Col } from 'antd'
+import { Form, Input, Button, Row, Col, message } from 'antd'
 
 
 import './index.less'
@@ -17,9 +17,13 @@ export default class index extends Component {
 
     onFinish = async (values) => {
         let res = await loginReq(values)
-        console.log(res)
-        //todo 测试
-        // this.props.history.push('/superAdmin')
+        if (res.msg === "登入成功") {
+            sessionStorage.setItem("identity", res.code);
+            sessionStorage.setItem("token", res.data.token);
+            this.props.history.push('/superAdmin')
+        } else {
+            message.warning(res.msg)
+        }
 
     }
 

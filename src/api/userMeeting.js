@@ -9,6 +9,10 @@ export const appointMeetingReq = (data) => ajax('/user/appointMeeting',data,'POS
 // 获取主页会议列表
 export const getHostMeetingReq = (data) => ajax('/user/getHostMeeting',data,'GET');
 
+// 获取会议信息
+//todo
+export const getMeetingById = (data) => ajax('/user/getMeetingById',data,'GET')
+
 // 获取会议文件
 export const getMeetingFileReq = (data) => ajax('/user/getMeetingFile',data,'GET');
 
